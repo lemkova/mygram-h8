@@ -21,7 +21,7 @@ var (
 
 func Connect() {
 	var dsn string
-	if os.Getenv("Env") == "Production" {
+	if os.Getenv("ENV") == "Production" {
 		dsn = os.Getenv("DATABASE_URL")
 	} else {
 		dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Shanghai", host, user, password, dbname, port)

@@ -12,7 +12,7 @@ func main() {
 	database.Connect()
 	r := router.StartApp()
 	var port string
-	if os.Getenv("Env") == "Production" {
+	if os.Getenv("ENV") == "Production" {
 		port = fmt.Sprintf(":%s", os.Getenv("PORT"))
 	} else {
 		port = ":8080"

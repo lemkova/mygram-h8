@@ -5,11 +5,12 @@ import (
 	"gorm.io/gorm"
 )
 
+// Photo model
 type Photo struct {
 	GormModel
-	PhotoTitle string `json"photo_title" form:"photo_title" valid:"required~Title is required"`
+	PhotoTitle string `json:"photo_title" form:"photo_title" valid:"required~Title is required"`
 	Caption    string `json:"caption,omitempty" form:"caption"`
-	PhotoURL   string `gorm:"not null" json:"photo_url" form:"photo_url" valid:"required~Photo is required"`
+	PhotoURL   string `gorm:"not null" json:"photo_url" form:"photo_url" valid:"required~Photo is required,url~Photo must be a valid URL"`
 	UserID     uint
 	Comments   []Comment `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comments,omitempty"`
 }

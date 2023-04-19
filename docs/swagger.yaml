@@ -1,0 +1,544 @@
+basePath: /
+definitions:
+  models.Comment:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photoID:
+        type: integer
+      updated_at:
+        type: string
+      userID:
+        type: integer
+    type: object
+  models.Photo:
+    properties:
+      caption:
+        type: string
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      created_at:
+        type: string
+      id:
+        type: integer
+      photo_title:
+        type: string
+      photo_url:
+        type: string
+      updated_at:
+        type: string
+      userID:
+        type: integer
+    type: object
+  models.SocialMedia:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      updated_at:
+        type: string
+      userID:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      age:
+        type: integer
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+      photos:
+        items:
+          $ref: '#/definitions/models.Photo'
+        type: array
+      social_media:
+        items:
+          $ref: '#/definitions/models.SocialMedia'
+        type: array
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server for a photo sharing app with comments feature.
+  termsOfService: http://swagger.io/terms/
+  title: Mygram API Documentation
+  version: "1.0"
+paths:
+  /comments/{commentId}:
+    delete:
+      description: Delete a comment by commentId
+      parameters:
+      - description: Comment ID
+        in: path
+        name: commentId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Delete a comment
+      tags:
+      - Comment
+    get:
+      description: Get a comment by commentId
+      parameters:
+      - description: Comment ID
+        in: path
+        name: commentId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Get a comment
+      tags:
+      - Comment
+    put:
+      consumes:
+      - application/json
+      - ' multipart/form-data'
+      description: Update a comment by commentId
+      parameters:
+      - description: Comment ID
+        in: path
+        name: commentId
+        required: true
+        type: integer
+      - description: Comment Message
+        in: body
+        name: message
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Update a comment
+      tags:
+      - Comment
+  /comments/create/{photoId}:
+    post:
+      consumes:
+      - application/json
+      - ' multipart/form-data'
+      description: Create a new comment for a photo
+      parameters:
+      - description: Photo ID
+        in: path
+        name: photoId
+        required: true
+        type: integer
+      - description: Comment message
+        in: body
+        name: message
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Create a new comment
+      tags:
+      - Comment
+  /comments/photo/{photoId}:
+    get:
+      description: Get all comments for a photo
+      parameters:
+      - description: Photo ID
+        in: path
+        name: photoId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+      summary: Get all comments for a photo
+      tags:
+      - Comment
+  /photos:
+    get:
+      description: Get all photos from database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Photo'
+            type: array
+      summary: Get all photos
+      tags:
+      - Photo
+  /photos/{id}:
+    delete:
+      description: Delete a photo from corresponding ID
+      parameters:
+      - description: Photo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+      summary: Delete a photo
+      tags:
+      - Photo
+    get:
+      description: Get a photo from database
+      parameters:
+      - description: Photo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+      summary: Get a photo
+      tags:
+      - Photo
+    put:
+      consumes:
+      - application/json
+      - ' multipart/form-data'
+      description: Update a photo from corresponding ID
+      parameters:
+      - description: Photo ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Photo Title
+        in: body
+        name: photo_title
+        schema:
+          type: string
+      - description: Photo Caption
+        in: body
+        name: caption
+        schema:
+          type: string
+      - description: Photo URL
+        in: body
+        name: photo_url
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+      summary: Update a photo
+      tags:
+      - Photo
+  /photos/create:
+    post:
+      consumes:
+      - application/json
+      - ' multipart/form-data'
+      description: Create a new photo
+      parameters:
+      - description: Photo Title
+        in: body
+        name: photo_title
+        required: true
+        schema:
+          type: string
+      - description: Photo Caption
+        in: body
+        name: caption
+        schema:
+          type: string
+      - description: Photo URL
+        in: body
+        name: photo_url
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Photo'
+      summary: Create a new photo
+      tags:
+      - Photo
+  /photos/user/{userId}:
+    get:
+      description: Get all photos by user from database
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Photo'
+            type: array
+      summary: Get all photos by user
+      tags:
+      - Photo
+  /socialmedia/:
+    get:
+      description: Get all social media
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.SocialMedia'
+            type: array
+      summary: Get all social media
+      tags:
+      - SocialMedia
+  /socialmedia/{id}:
+    delete:
+      description: Delete a social media by id
+      parameters:
+      - description: Social Media ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+      summary: Delete a social media by id
+      tags:
+      - SocialMedia
+    get:
+      description: Get a social media by id
+      parameters:
+      - description: Social Media ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+      summary: Get a social media by id
+      tags:
+      - SocialMedia
+    put:
+      consumes:
+      - application/json
+      - ' multipart/form-data'
+      description: Update a social media by id
+      parameters:
+      - description: Social Media ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Social Media Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Social Media URL
+        in: body
+        name: social_media_url
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+      summary: Update a social media by id
+      tags:
+      - SocialMedia
+  /socialmedia/create/:
+    post:
+      consumes:
+      - application/json
+      - ' multipart/form-data'
+      description: Create a new social media
+      parameters:
+      - description: Social Media Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: Social Media URL
+        in: body
+        name: social_media_url
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+      summary: Create a new social media
+      tags:
+      - SocialMedia
+  /socialmedia/user/{userId}:
+    get:
+      description: Get all social media by user id
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.SocialMedia'
+            type: array
+      summary: Get all social media by user id
+      tags:
+      - SocialMedia
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      - ' multipart/form-data'
+      description: Login a user
+      parameters:
+      - description: Email
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: Password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Login a user
+      tags:
+      - User
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      - ' multipart/form-data'
+      description: Register a new user
+      parameters:
+      - description: Username
+        in: body
+        name: username
+        required: true
+        schema:
+          type: string
+      - description: Email
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: Password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Register a new user
+      tags:
+      - User
+swagger: "2.0"

@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -15,6 +14,17 @@ var (
 	appJSON = "application/json"
 )
 
+// UserRegister godoc
+// @Summary Register a new user
+// @Description Register a new user
+// @Tags User
+// @Accept  json, multipart/form-data
+// @Produce  json
+// @Param username body string true "Username"
+// @Param email body string true "Email"
+// @Param password body string true "Password"
+// @Success 201 {object} models.User
+// @Router /user/register [post]
 func UserRegister(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -33,8 +43,6 @@ func UserRegister(c *gin.Context) {
 		}
 	}
 
-	fmt.Printf("%v\n", User)
-
 	if err := db.Debug().Create(&User).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Failed when registering user",
@@ -51,6 +59,16 @@ func UserRegister(c *gin.Context) {
 	})
 }
 
+// UserLogin godoc
+// @Summary Login a user
+// @Description Login a user
+// @Tags User
+// @Accept  json, multipart/form-data
+// @Produce  json
+// @Param email body string true "Email"
+// @Param password body string true "Password"
+// @Success 200 {object} models.User
+// @Router /user/login [post]
 func UserLogin(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -78,7 +96,7 @@ func UserLogin(c *gin.Context) {
 		return
 	}
 
-	if !helpers.ComparePass([]byte(password), []byte(User.Password)) {
+	if !helpers.ComparePass([]byte(User.Password), []byte(password)) {
 		c.JSON(http.StatusUnauthorized, gin.H{
 			"message": "Failed when logging in user",
 			"error":   "Email or password is incorrect",

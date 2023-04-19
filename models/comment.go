@@ -5,6 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Comment model that belongs to a photo
 type Comment struct {
 	GormModel
 	UserID  uint

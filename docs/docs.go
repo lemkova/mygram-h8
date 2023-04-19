@@ -606,7 +606,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/login": {
+        "/users/login": {
             "post": {
                 "description": "Login a user",
                 "consumes": [
@@ -617,7 +617,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "Users"
                 ],
                 "summary": "Login a user",
                 "parameters": [
@@ -650,7 +650,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/register": {
+        "/users/register": {
             "post": {
                 "description": "Register a new user",
                 "consumes": [
@@ -661,7 +661,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "Users"
                 ],
                 "summary": "Register a new user",
                 "parameters": [

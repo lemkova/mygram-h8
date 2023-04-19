@@ -477,7 +477,7 @@ paths:
       summary: Get all social media by user id
       tags:
       - SocialMedia
-  /user/login:
+  /users/login:
     post:
       consumes:
       - application/json
@@ -505,8 +505,8 @@ paths:
             $ref: '#/definitions/models.User'
       summary: Login a user
       tags:
-      - User
-  /user/register:
+      - Users
+  /users/register:
     post:
       consumes:
       - application/json
@@ -546,5 +546,5 @@ paths:
             $ref: '#/definitions/models.User'
       summary: Register a new user
       tags:
-      - User
+      - Users
 swagger: "2.0"

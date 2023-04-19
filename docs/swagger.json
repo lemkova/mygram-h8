@@ -599,7 +599,7 @@
                 }
             }
         },
-        "/user/login": {
+        "/users/login": {
             "post": {
                 "description": "Login a user",
                 "consumes": [
@@ -610,7 +610,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "Users"
                 ],
                 "summary": "Login a user",
                 "parameters": [
@@ -643,7 +643,7 @@
                 }
             }
         },
-        "/user/register": {
+        "/users/register": {
             "post": {
                 "description": "Register a new user",
                 "consumes": [
@@ -654,7 +654,7 @@
                     "application/json"
                 ],
                 "tags": [
-                    "User"
+                    "Users"
                 ],
                 "summary": "Register a new user",
                 "parameters": [

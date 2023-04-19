@@ -17,7 +17,7 @@ var (
 // UserRegister godoc
 // @Summary Register a new user
 // @Description Register a new user
-// @Tags User
+// @Tags Users
 // @Accept  json, multipart/form-data
 // @Produce  json
 // @Param username body string true "Username"
@@ -25,7 +25,7 @@ var (
 // @Param password body string true "Password"
 // @Param age body int true "Age"
 // @Success 201 {object} models.User
-// @Router /user/register [post]
+// @Router /users/register [post]
 func UserRegister(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -63,13 +63,13 @@ func UserRegister(c *gin.Context) {
 // UserLogin godoc
 // @Summary Login a user
 // @Description Login a user
-// @Tags User
+// @Tags Users
 // @Accept  json, multipart/form-data
 // @Produce  json
 // @Param email body string true "Email"
 // @Param password body string true "Password"
 // @Success 200 {object} models.User
-// @Router /user/login [post]
+// @Router /users/login [post]
 func UserLogin(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)

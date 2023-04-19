@@ -3,6 +3,8 @@ package database
 import (
 	"fmt"
 
+	"os"
+
 	"github.com/lemkova/mygram-h8/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -18,7 +20,12 @@ var (
 )
 
 func Connect() {
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Shanghai", host, user, password, dbname, port)
+	var dsn string
+	if os.Getenv("Env") == "Production" {
+		dsn = os.Getenv("DATABASE_URL")
+	} else {
+		dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Shanghai", host, user, password, dbname, port)
+	}
 	err := error(nil)
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {

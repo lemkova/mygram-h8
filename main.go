@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"os"
+
 	"github.com/lemkova/mygram-h8/database"
 	"github.com/lemkova/mygram-h8/router"
 )
@@ -8,5 +11,11 @@ import (
 func main() {
 	database.Connect()
 	r := router.StartApp()
-	r.Run(":8080")
+	var port string
+	if os.Getenv("Env") == "Production" {
+		port = fmt.Sprintf(":%s", os.Getenv("PORT"))
+	} else {
+		port = ":8080"
+	}
+	r.Run(port)
 }

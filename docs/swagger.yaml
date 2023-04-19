@@ -531,6 +531,12 @@ paths:
         required: true
         schema:
           type: string
+      - description: Age
+        in: body
+        name: age
+        required: true
+        schema:
+          type: integer
       produces:
       - application/json
       responses:

@@ -23,6 +23,7 @@ var (
 // @Param username body string true "Username"
 // @Param email body string true "Email"
 // @Param password body string true "Password"
+// @Param age body int true "Age"
 // @Success 201 {object} models.User
 // @Router /user/register [post]
 func UserRegister(c *gin.Context) {
